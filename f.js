@@ -6,10 +6,10 @@
  *
  * 2) CREATE .env FILE with keys:
  *    OPENAI_API_KEY=sk-...
- *    NETLIFY_SITE_ID=...
  *    CLOUDINARY_CLOUD_NAME=...
  *    CLOUDINARY_API_KEY=...
  *    CLOUDINARY_API_SECRET=...
+ *    (Notice we no longer use NETLIFY_SITE_ID from .env)
  *
  * 3) RUN:
  *    node server.js
@@ -18,6 +18,7 @@
  *    curl -X POST http://localhost:3000/nl-generate-landing-page \
  *      -H "Content-Type: application/json" \
  *      -H "netlify-auth-token: <YOUR_TOKEN_HERE>" \
+ *      -H "netlify-site-id: <YOUR_SITE_ID_HERE>" \
  *      -d '{"textPrompt": "...some instructions..."}'
  *******************************************************/
 
@@ -93,7 +94,6 @@ async function fetchCompressUpload(originalUrl) {
     return uploadResult.secure_url;
   } catch (err) {
     console.error("Error in fetchCompressUpload:", err.message);
-    // Throw here so we can either catch/fallback or bubble up
     throw new Error(`Failed to compress+upload image from URL: ${originalUrl}`);
   }
 }
@@ -108,19 +108,16 @@ const openai = new OpenAIApi(openaiConfig);
 
 // ----------------------------------------------------
 // 2) NETLIFY DEPLOY FUNCTION
-//    NOTE: Netlify token is now read from request headers
-//    but we still read the SITE_ID from .env
+//    We now read netlifySiteId from the request headers
 // ----------------------------------------------------
-const NETLIFY_SITE_ID = process.env.NETLIFY_SITE_ID;
-
-async function deployHtmlToNetlify(htmlString, netlifyToken) {
+async function deployHtmlToNetlify(htmlString, netlifyToken, netlifySiteId) {
   console.log("deployHtmlToNetlify: Starting deploy to Netlify...");
 
   if (!netlifyToken) {
     throw new Error("Missing Netlify Auth Token in request header!");
   }
-  if (!NETLIFY_SITE_ID) {
-    throw new Error("Missing NETLIFY_SITE_ID in .env");
+  if (!netlifySiteId) {
+    throw new Error("Missing Netlify Site ID in request header!");
   }
 
   // Zip index.html in memory
@@ -131,7 +128,7 @@ async function deployHtmlToNetlify(htmlString, netlifyToken) {
   console.log("deployHtmlToNetlify: zip size =", zipBuffer.length, "bytes");
 
   // Deploy to Netlify
-  const url = `https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/deploys`;
+  const url = `https://api.netlify.com/api/v1/sites/${netlifySiteId}/deploys`;
   console.log("deployHtmlToNetlify: POST ->", url);
 
   const response = await axios.post(url, zipBuffer, {
@@ -377,7 +374,7 @@ function generateLandingPageHtml(parsedData) {
   <section class="hero-section">
     <div class="hero-overlay"></div>
     <div class="hero-content" data-aos="zoom-in">
-      <h1>Dr. ${doctorDetails.name}</h1>
+      <h1> ${doctorDetails.name}</h1>
       <p>Leading Specialist in ${websiteNiche}</p>
       <button class="btn btn-light mt-3" onclick="document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });">
         Book an Appointment
@@ -390,7 +387,7 @@ function generateLandingPageHtml(parsedData) {
     <div class="row">
       <!-- Left Column: Specializations, Achievements, etc. -->
       <div class="col-md-6" data-aos="fade-right">
-        <h2>About Dr. ${doctorDetails.name}</h2>
+        <h2>About  ${doctorDetails.name}</h2>
         <p class="lead">
           Dedicated to offering the highest level of personalized care for every patient.
         </p>
@@ -426,7 +423,7 @@ function generateLandingPageHtml(parsedData) {
 
       <!-- Right Column: Image -->
       <div class="col-md-6 text-center" data-aos="fade-left">
-        <img src="${mainImage}" alt="Photo of Dr. ${doctorDetails.name}" class="img-fluid rounded shadow">
+        <img src="${mainImage}" alt="Photo of  ${doctorDetails.name}" class="img-fluid rounded shadow">
       </div>
     </div>
   </section>
@@ -452,7 +449,7 @@ function generateLandingPageHtml(parsedData) {
           <div class="text-center">
             <img src="${t1}" alt="Patient 1">
             <blockquote class="blockquote mt-3">
-              "Dr. ${doctorDetails.name} is simply the best. I felt cared for from the moment I walked in!"
+              " ${doctorDetails.name} is simply the best. I felt cared for from the moment I walked in!"
             </blockquote>
             <p class="fw-bold">- Happy Patient</p>
           </div>
@@ -549,7 +546,7 @@ function generateLandingPageHtml(parsedData) {
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p class="mb-2">&copy; ${new Date().getFullYear()} Dr. ${doctorDetails.name}. All rights reserved.</p>
+      <p class="mb-2">&copy; ${new Date().getFullYear()}  ${doctorDetails.name}. All rights reserved.</p>
       <p>Setting the gold standard in personalized healthcare for every walk of life.</p>
     </div>
   </footer>
@@ -571,7 +568,8 @@ function generateLandingPageHtml(parsedData) {
 }
 
 // ----------------------------------------------------
-// 4) NATURAL LANGUAGE -> LLM -> JSON -> (Compress) -> Deploy to Netlify
+// 4) NATURAL LANGUAGE -> LLM -> JSON -> (Compress) -> Deploy
+//    Now reads netlify site ID from request headers too
 // ----------------------------------------------------
 app.post("/nl-generate-landing-page", async (req, res) => {
   try {
@@ -580,10 +578,15 @@ app.post("/nl-generate-landing-page", async (req, res) => {
       return res.status(400).json({ error: 'Missing "textPrompt" field' });
     }
 
-    // Extract Netlify auth token from the request headers
+    // Extract Netlify auth token and site ID from the request headers
     const netlifyAuthToken = req.headers["netlify-auth-token"];
+    const netlifySiteId    = req.headers["netlify-site-id"];
+
     if (!netlifyAuthToken) {
       return res.status(400).json({ error: "Missing 'netlify-auth-token' header" });
+    }
+    if (!netlifySiteId) {
+      return res.status(400).json({ error: "Missing 'netlify-site-id' header" });
     }
 
     // 1) System instructions for the LLM about how to parse
@@ -647,7 +650,6 @@ ALWAYS respond with valid JSON. No code blocks, no extra text.
         } catch (err) {
           console.log("Error compressing image:", originalUrl, err.message);
           // fallback to original
-          // parsed.images[i] = originalUrl;
         }
       }
     }
@@ -660,7 +662,6 @@ ALWAYS respond with valid JSON. No code blocks, no extra text.
         } catch (err) {
           console.log("Error compressing testimonial image:", originalTUrl, err.message);
           // fallback to original
-          // parsed.testimonialImages[j] = originalTUrl;
         }
       }
     }
@@ -668,14 +669,14 @@ ALWAYS respond with valid JSON. No code blocks, no extra text.
     // 5) Generate HTML from that JSON
     const finalHtml = generateLandingPageHtml(parsed);
 
-    // 6) Deploy the HTML to Netlify (pass the token from headers)
-    const netlifyUrl = await deployHtmlToNetlify(finalHtml, netlifyAuthToken);
+    // 6) Deploy the HTML to Netlify (passing both token + site ID)
+    const netlifyUrl = await deployHtmlToNetlify(finalHtml, netlifyAuthToken, netlifySiteId);
 
     // 7) Return the Netlify URL
     return res.status(200).json({
       success: true,
       netlifyUrl,
-      note: "Images compressed & uploaded to Cloudinary, then deployed to Netlify (token from headers).",
+      note: "Images compressed & uploaded to Cloudinary, then deployed to Netlify (token + site ID from headers).",
     });
   } catch (err) {
     console.error("Error in /nl-generate-landing-page:", err);
