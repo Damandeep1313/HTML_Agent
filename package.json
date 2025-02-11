@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "axios": "^1.7.9",
+    "cloudinary": "^2.5.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0",
+    "openai": "^3.2.1",
+    "sharp": "^0.33.5",
+    "vercel": "^41.0.2",
+    "yazl": "^3.3.1"
+  }
+}

@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Luxury Services – Dr. Jane | DENTISTRY Prestige</title>
+  <meta name="description" content="Dr. Jane is a leading specialist in the Dentistry field. This page showcases specializations, achievements, and more." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <!-- Bootstrap Icons (for styling bullet points) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  >
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css"
+  />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background-color: #f9f9f9;
+      overflow-x: hidden;
+    }
+    .navbar-brand {
+      font-weight: 700;
+    }
+    /* Hero */
+    .hero-section {
+      position: relative;
+      height: 75vh;
+      background: url('https://res.cloudinary.com/dzzsw16ym/image/upload/v1739269175/compressed-images/oidonalqt7i005cizhfh.jpg') center center / cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    .hero-content p {
+      font-size: 1.3rem;
+      font-weight: 300;
+      margin-top: 0.5rem;
+    }
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #15aabf, #2fbfac);
+      color: #fff;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .cta-section .btn-cta {
+      background-color: #fff;
+      color: #15aabf;
+      font-weight: 600;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      transition: background-color 0.3s ease;
+    }
+    .cta-section .btn-cta:hover {
+      background-color: #eee;
+    }
+
+    /* Enhanced bullet styling for lists */
+    .list-group-item {
+      border: 0;
+      padding-left: 0;
+    }
+    .list-group-item i {
+      color: #2fbfac;
+      margin-right: 0.5rem;
+    }
+
+    /* Testimonials */
+    .testimonial-carousel .carousel-item {
+      padding: 2rem;
+    }
+    .testimonial-carousel .carousel-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .testimonial-carousel .carousel-item blockquote {
+      font-style: italic;
+      margin: 1.5rem 0;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      background-color: #fff;
+      padding: 3rem 0;
+      margin-bottom: 3rem;
+    }
+    /* Description Section styling (within About) */
+    .description-box {
+      background: #fff3e6;
+      border: 1px solid #ffd9b3;
+      padding: 1.5rem;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      min-height: 220px;
+      width: 95%;
+      margin: 0 auto 1.5rem auto;
+    }
+    /* Appointment Form styling */
+    .appointment-card {
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    .appointment-card .card-body {
+      padding: 2rem;
+    }
+    /* Footer */
+    footer {
+      background-color: #222;
+      color: #bbb;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    footer p {
+      margin: 0;
+    }
+    /* AOS animations */
+    [data-aos] {
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" data-aos="fade-down">
+    <div class="container">
+      <a class="navbar-brand" href="#">Dr. Jane</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto">
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about-us">about us</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">contact</a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="zoom-in">
+      <h1>Dr. Dr. Jane</h1>
+      <p>Leading Specialist in Dentistry</p>
+      <button class="btn btn-light mt-3" onclick="document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });">
+        Book an Appointment
+      </button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="container py-5">
+    <div class="row">
+      <!-- Left Column: Specializations, Achievements, etc. -->
+      <div class="col-md-6" data-aos="fade-right">
+        <h2>About Dr. Dr. Jane</h2>
+        <p class="lead">
+          Dedicated to offering the highest level of personalized care for every patient.
+        </p>
+
+        <!-- Specializations -->
+        <h4>Specializations:</h4>
+        <ul class="list-group list-group-flush mb-3">
+          
+            <li class="list-group-item">
+              <i class="bi bi-check-circle-fill"></i>
+              General Dentistry
+            </li>
+          
+            <li class="list-group-item">
+              <i class="bi bi-check-circle-fill"></i>
+              Cosmetic Dentistry
+            </li>
+          
+        </ul>
+
+        <!-- Achievements -->
+        <h4>Achievements:</h4>
+        <ul class="list-group list-group-flush mb-3">
+          
+            <li class="list-group-item">
+              <i class="bi bi-star-fill"></i>
+              Awarded best dentist
+            </li>
+          
+        </ul>
+
+        <!-- Description -->
+        <h4 class="mb-2">Description:</h4>
+        <div class="description-box">
+          Dr. Jane is a highly skilled dentist dedicated to providing top-quality dental care to her patients. With expertise in General Dentistry and Cosmetic Dentistry, she ensures that every patient receives personalized treatment. Dr. Jane has been recognized as the best dentist for her exceptional skills and compassionate approach towards dental health.
+        </div>
+      </div>
+
+      <!-- Right Column: Image -->
+      <div class="col-md-6 text-center" data-aos="fade-left">
+        <img src="https://res.cloudinary.com/dzzsw16ym/image/upload/v1739269175/compressed-images/oidonalqt7i005cizhfh.jpg" alt="Photo of Dr. Dr. Jane" class="img-fluid rounded shadow">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" data-aos="fade-up">
+    <div class="container">
+      <h2>Experience Our World-Class Services</h2>
+      <p class="mb-4">Book an appointment and discover the difference of dedicated, patient-centered care.</p>
+      <button class="btn-cta" onclick="document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });">
+        Book Now
+      </button>
+    </div>
+  </section>
+
+  <!-- Testimonial Carousel -->
+  <section class="testimonial-carousel container py-5" data-aos="fade-up">
+    <h2 class="text-center mb-4">What Our Patients Say</h2>
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="text-center">
+            <img src="https://res.cloudinary.com/dzzsw16ym/image/upload/v1739269177/compressed-images/rfzwercwm1miopigflvb.jpg" alt="Patient 1">
+            <blockquote class="blockquote mt-3">
+              "Dr. Dr. Jane is simply the best. I felt cared for from the moment I walked in!"
+            </blockquote>
+            <p class="fw-bold">- Happy Patient</p>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <div class="text-center">
+            <img src="https://res.cloudinary.com/dzzsw16ym/image/upload/v1739269178/compressed-images/d9xffqnhmbyg4lppjiys.jpg" alt="Patient 2">
+            <blockquote class="blockquote mt-3">
+              "I wouldn't trust anyone else with my family's needs."
+            </blockquote>
+            <p class="fw-bold">- Satisfied Family</p>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <div class="text-center">
+            <img src="https://res.cloudinary.com/dzzsw16ym/image/upload/v1739269180/compressed-images/t2vopsfm9dakqugux2nm.jpg" alt="Patient 3">
+            <blockquote class="blockquote mt-3">
+              "Professional, caring, and highly experienced. 10/10 recommend!"
+            </blockquote>
+            <p class="fw-bold">- Grateful Patient</p>
+          </div>
+        </div>
+      </div>
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section container" data-aos="fade-up">
+    <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+    <div class="accordion" id="faqAccordion">
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading0">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapse0" aria-expanded="false" aria-controls="collapse0">
+              What are the common dental procedures offered?
+            </button>
+          </h2>
+          <div id="collapse0" class="accordion-collapse collapse"
+               aria-labelledby="heading0" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Dr. Jane offers a wide range of dental procedures including cleanings, fillings, root canals, and teeth whitening.
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+              How can I schedule an appointment with Dr. Jane?
+            </button>
+          </h2>
+          <div id="collapse1" class="accordion-collapse collapse"
+               aria-labelledby="heading1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              You can easily schedule an appointment with Dr. Jane by calling our office or filling out the online appointment form on our website.
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  </section>
+
+  <!-- Appointment Form (Scroll Target) -->
+  <section class="contact-section" id="appointment">
+    <div class="container" data-aos="fade-up">
+      <h2 class="text-center mb-5">Request an Appointment</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card appointment-card">
+            <div class="card-body">
+              <h4 class="card-title mb-3">Please fill in your details</h4>
+              <form>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Your name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                </div>
+                <div class="mb-3">
+                  <label for="date" class="form-label">Preferred Date</label>
+                  <input type="date" class="form-control" id="date" required>
+                </div>
+                <div class="mb-3">
+                  <label for="notes" class="form-label">Additional Notes</label>
+                  <textarea class="form-control" id="notes" rows="3" placeholder="Any special requests or questions..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p class="mb-2">&copy; 2025 Dr. Dr. Jane. All rights reserved.</p>
+      <p>Setting the gold standard in personalized healthcare for every walk of life.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS Library JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
+</body>
+</html>
+  
